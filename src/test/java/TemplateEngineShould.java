@@ -7,8 +7,12 @@ import static org.assertj.core.api.Assertions.*;
 
 /*
  - No variables to interpolate - "text" = "text"
- - A variable to interpolate - "Hola amigo me llamo ${name}, {{name: "La fani"}}
- - Several variables to interpolate - "Hola ${user} me llamo ${name} espero que estes bien"
+ - OK A variable to interpolate - "Hola amigo me llamo ${name}, {{name: "La fani"}}
+ - OK Several variables to interpolate - "Hola ${user} me llamo ${name} espero que estes bien"
+ - Corner cases:
+    - "Hola ${expression} me llamo ${name}"  , {name: "Paco"} -> "Hola ${expression} me llamo Paco" + WARN UNMATCHED PLACEHOLDER
+    - "Hola me llamo ${name}"  , {expression: "lola", name: "Paco"} -> "Hola me llamo Paco" + WARN KEY NOT USED
+    - (is same case as above) "Hola ${{expression} me llamo ${name}"  , {expression: "lola", name: "Paco"} -> "Hola ${{expression} me llamo Paco" + WARN KEY NOT USED
  */
 public class TemplateEngineShould {
     @Test
