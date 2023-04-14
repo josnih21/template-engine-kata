@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.*;
 /*
  - No variables to interpolate - "text" = "text"
  - A variable to interpolate - "Hola amigo me llamo ${name}, {{name: "La fani"}}
+ - Several variables to interpolate - "Hola ${user} me llamo ${name} espero que estes bien"
  */
 public class TemplateEngineShould {
     @Test
@@ -19,9 +20,9 @@ public class TemplateEngineShould {
 
     @Test
     void replace_variables_with_values_in_the_dictionary(){
-        String input = "Hola amigo me llamo ${name}";
-        var dictionary = Map.of("name", "la Fani");
+        String input = "Hola ${user} me llamo ${name}";
+        var dictionary = Map.of("user", "Hosecrypto", "name", "la Fani");
         var interpolatedText = TemplateEngine.interpolate(input, dictionary);
-        assertThat(interpolatedText).isEqualTo("Hola amigo me llamo la Fani");
+        assertThat(interpolatedText).isEqualTo("Hola Hosecrypto me llamo la Fani");
     }
 }
