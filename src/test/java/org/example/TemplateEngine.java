@@ -15,7 +15,7 @@ public class TemplateEngine {
         while (matcher.find()) {
             String placeholder = matcher.group();
             String key = placeholder.replace("${", "").replace("}", "");
-            interpolatedText = text.replace(placeholder, variables.get(key));
+            interpolatedText = interpolatedText.replace(placeholder, variables.get(key));
         }
         return interpolatedText;
     }
