@@ -17,6 +17,10 @@ public class InterpolationResult {
         return new InterpolationResult(new InterpolationWarnings(warnings), new InterpolatedText(text));
     }
 
+    public static InterpolationResult from(InterpolationWarnings warnings, InterpolatedText interpolatedText) {
+        return new InterpolationResult(warnings, interpolatedText);
+    }
+
     public InterpolatedText getText() {
         return text;
     }

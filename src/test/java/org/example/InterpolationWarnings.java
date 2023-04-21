@@ -1,14 +1,20 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class InterpolationWarnings {
-    List<String> warnings;
+    private List<String> warnings;
 
     public InterpolationWarnings(List<String> warnings) {
         this.warnings = warnings;
     }
+
+    public static InterpolationWarnings empty() {
+        return new InterpolationWarnings(new ArrayList<>());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,5 +41,9 @@ public class InterpolationWarnings {
     @Override
     public int hashCode() {
         return Objects.hash(warnings);
+    }
+
+    public void addMissingPlaceHolder(String placeholder) {
+        warnings.add("Missing placeholder value: " + placeholder);
     }
 }
