@@ -5,15 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class InterpolationWarnings {
-    private List<String> warnings;
-
-    public InterpolationWarnings(List<String> warnings) {
-        this.warnings = warnings;
-    }
-
-    public static InterpolationWarnings empty() {
-        return new InterpolationWarnings(new ArrayList<>());
-    }
+    private List<String> warnings = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
