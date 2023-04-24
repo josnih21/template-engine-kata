@@ -6,10 +6,9 @@ import java.util.regex.Pattern;
 
 public class TemplateEngine {
     public static InterpolationResult interpolate(String text, Map<String, String> variables) {
-        Pattern pattern = Pattern.compile("\\$\\{[a-zA-Z0-9]+\\}");
-        Matcher matcher = pattern.matcher(text);
+        Matcher matcher = getPlaceholderMatcher(text);
         var interpolatedText = text;
-        var warnings = InterpolationWarnings.empty();
+        var warnings = new InterpolationWarnings();
         while (matcher.find()) {
             String placeholder = matcher.group();
             String key = placeholder.replace("${", "").replace("}", "");
@@ -21,5 +20,10 @@ public class TemplateEngine {
             }
         }
         return InterpolationResult.from(warnings, new InterpolatedText(interpolatedText));
+    }
+
+    private static Matcher getPlaceholderMatcher(String text) {
+        Pattern pattern = Pattern.compile("\\$\\{[a-zA-Z0-9]+\\}");
+        return pattern.matcher(text);
     }
 }
