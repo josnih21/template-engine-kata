@@ -7,19 +7,22 @@ import java.util.regex.Pattern;
 public class TemplateEngine {
     public static InterpolationResult interpolate(String text, Map<String, String> variables) {
         Matcher matcher = getPlaceholderMatcher(text);
-        var interpolatedText = text;
         var warnings = new InterpolationWarnings();
         while (matcher.find()) {
             String placeholder = matcher.group();
-            String key = placeholder.replace("${", "").replace("}", "");
-            String replacement = variables.get(key);
-            if (replacement != null) {
-                interpolatedText = interpolatedText.replace(placeholder, replacement);
+            String key = getKeyFromPlaceholder(placeholder);
+            String value = variables.get(key);
+            if (value != null) {
+                text = text.replace(placeholder, value);
             } else {
                 warnings.addMissingPlaceHolder(placeholder);
             }
         }
-        return InterpolationResult.from(warnings, new InterpolatedText(interpolatedText));
+        return InterpolationResult.from(warnings, new InterpolatedText(text));
+    }
+
+    private static String getKeyFromPlaceholder(String placeholder) {
+        return placeholder.replace("${", "").replace("}", "");
     }
 
     private static Matcher getPlaceholderMatcher(String text) {

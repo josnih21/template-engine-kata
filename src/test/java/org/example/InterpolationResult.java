@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.List;
 import java.util.Objects;
 
 public class InterpolationResult {
@@ -11,10 +10,6 @@ public class InterpolationResult {
     private InterpolationResult(InterpolationWarnings warnings, InterpolatedText text) {
         this.warnings = warnings;
         this.text = text;
-    }
-
-    public static InterpolationResult from(List<String> warnings, String text) {
-        return new InterpolationResult(new InterpolationWarnings(warnings), new InterpolatedText(text));
     }
 
     public static InterpolationResult from(InterpolationWarnings warnings, InterpolatedText interpolatedText) {
